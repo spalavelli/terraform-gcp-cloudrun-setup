@@ -1,0 +1,184 @@
+ubuntu@ip-172-31-6-163:~/iac$ terraform plan
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # google_cloud_run_service.cloud_run_service will be created
+  + resource "google_cloud_run_service" "cloud_run_service" {
+      + autogenerate_revision_name = false
+      + id                         = (known after apply)
+      + location                   = "us-central1"
+      + name                       = "rns-cloud-run-service"
+      + project                    = "rns-project-id"
+      + status                     = (known after apply)
+
+      + metadata (known after apply)
+
+      + template {
+          + metadata (known after apply)
+          + spec {
+              + container_concurrency = (known after apply)
+              + service_account_name  = (known after apply)
+              + serving_state         = (known after apply)
+              + timeout_seconds       = (known after apply)
+
+              + containers {
+                  + image = "nginx:latest"
+                  + name  = (known after apply)
+
+                  + ports (known after apply)
+
+                  + resources (known after apply)
+
+                  + startup_probe (known after apply)
+                }
+            }
+        }
+
+      + traffic {
+          + latest_revision = true
+          + percent         = 100
+          + url             = (known after apply)
+        }
+    }
+
+  # google_compute_forwarding_rule.ilb_forwarding_rule will be created
+  + resource "google_compute_forwarding_rule" "ilb_forwarding_rule" {
+      + backend_service       = (known after apply)
+      + base_forwarding_rule  = (known after apply)
+      + creation_timestamp    = (known after apply)
+      + effective_labels      = (known after apply)
+      + id                    = (known after apply)
+      + ip_address            = (known after apply)
+      + ip_protocol           = (known after apply)
+      + ip_version            = (known after apply)
+      + label_fingerprint     = (known after apply)
+      + load_balancing_scheme = "INTERNAL"
+      + name                  = "rns-ilb-forwarding-rule"
+      + network               = (known after apply)
+      + network_tier          = (known after apply)
+      + port_range            = (known after apply)
+      + ports                 = [
+          + "80",
+        ]
+      + project               = "rns-project-id"
+      + psc_connection_id     = (known after apply)
+      + psc_connection_status = (known after apply)
+      + recreate_closed_psc   = false
+      + region                = "us-central1"
+      + self_link             = (known after apply)
+      + service_name          = (known after apply)
+      + subnetwork            = (known after apply)
+      + terraform_labels      = (known after apply)
+
+      + service_directory_registrations (known after apply)
+    }
+
+  # google_compute_health_check.ilb_health_check will be created
+  + resource "google_compute_health_check" "ilb_health_check" {
+      + check_interval_sec  = 1
+      + creation_timestamp  = (known after apply)
+      + healthy_threshold   = 2
+      + id                  = (known after apply)
+      + name                = "rns-ilb-health-check"
+      + project             = "rns-project-id"
+      + self_link           = (known after apply)
+      + timeout_sec         = 1
+      + type                = (known after apply)
+      + unhealthy_threshold = 2
+
+      + http_health_check {
+          + port         = 80
+          + proxy_header = "NONE"
+          + request_path = "/"
+        }
+
+      + log_config (known after apply)
+    }
+
+  # google_compute_region_backend_service.ilb_backend_service will be created
+  + resource "google_compute_region_backend_service" "ilb_backend_service" {
+      + connection_draining_timeout_sec = 0
+      + creation_timestamp              = (known after apply)
+      + fingerprint                     = (known after apply)
+      + generated_id                    = (known after apply)
+      + health_checks                   = (known after apply)
+      + id                              = (known after apply)
+      + load_balancing_scheme           = "INTERNAL"
+      + name                            = "rns-ilb-backend-service"
+      + port_name                       = (known after apply)
+      + project                         = "rns-project-id"
+      + protocol                        = (known after apply)
+      + region                          = "us-central1"
+      + self_link                       = (known after apply)
+      + session_affinity                = (known after apply)
+      + timeout_sec                     = (known after apply)
+
+      + backend {
+          + balancing_mode = "CONNECTION"
+          + failover       = (known after apply)
+          + group          = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+      + cdn_policy (known after apply)
+
+      + log_config (known after apply)
+    }
+
+  # google_sql_database_instance.db_instance will be created
+  + resource "google_sql_database_instance" "db_instance" {
+      + available_maintenance_versions = (known after apply)
+      + connection_name                = (known after apply)
+      + database_version               = "POSTGRES_13"
+      + deletion_protection            = false
+      + dns_name                       = (known after apply)
+      + encryption_key_name            = (known after apply)
+      + first_ip_address               = (known after apply)
+      + id                             = (known after apply)
+      + instance_type                  = (known after apply)
+      + ip_address                     = (known after apply)
+      + maintenance_version            = (known after apply)
+      + master_instance_name           = (known after apply)
+      + name                           = "rns-db-instance"
+      + private_ip_address             = (known after apply)
+      + project                        = "rns-project-id"
+      + psc_service_attachment_link    = (known after apply)
+      + public_ip_address              = (known after apply)
+      + region                         = "us-central1"
+      + self_link                      = (known after apply)
+      + server_ca_cert                 = (sensitive value)
+      + service_account_email_address  = (known after apply)
+
+      + replica_configuration (known after apply)
+
+      + settings {
+          + activation_policy     = "ALWAYS"
+          + availability_type     = "ZONAL"
+          + connector_enforcement = (known after apply)
+          + disk_autoresize       = true
+          + disk_autoresize_limit = 0
+          + disk_size             = (known after apply)
+          + disk_type             = "PD_SSD"
+          + edition               = "ENTERPRISE"
+          + pricing_plan          = "PER_USE"
+          + tier                  = "db-g1-small"
+          + user_labels           = (known after apply)
+          + version               = (known after apply)
+
+          + backup_configuration (known after apply)
+
+          + ip_configuration (known after apply)
+
+          + location_preference (known after apply)
+        }
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+ubuntu@ip-172-31-6-163:~/iac$
