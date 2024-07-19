@@ -50,8 +50,13 @@ Before you begin, ensure you have the following:
     ```bash
     terraform init
     ```
-
-2. **Apply the configuration:**
+2. **Review the plan:**
+    
+    Run the following command to create an execution plan:
+    ```bash
+    terraform plan
+    ```
+3. **Apply the configuration:**
 
     Run the following command to create the resources:
 
@@ -61,27 +66,6 @@ Before you begin, ensure you have the following:
 
     Review the planned changes and type `yes` to confirm the deployment.
 
-## Resources
-
-This Terraform configuration will create the following resources:
-
-- **PostgreSQL Database Instance:**
-    - Name: `rns-db-instance`
-    - Version: PostgreSQL 13
-    - Tier: `db-g1-small`
-    - Region: `us-central1`
-
-- **Cloud Run Service:**
-    - Name: `rns-cloud-run-service`
-    - Location: `us-central1`
-    - Image: `nginx:latest`
-    - Traffic: 100% to the latest revision
-
-- **Internal Load Balancer:**
-    - Forwarding Rule: `rns-ilb-forwarding-rule`
-    - Backend Service: `rns-ilb-backend-service`
-    - Health Check: `rns-ilb-health-check`
-    - Port: 80
 
 ## Clean Up
 
